@@ -134,6 +134,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>PCC_DB.mdf</DependentUpon>
     </Content>
+    <None Include="Textures\prisma-background-vector.jpg" />
     <None Include="Textures\question-mark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

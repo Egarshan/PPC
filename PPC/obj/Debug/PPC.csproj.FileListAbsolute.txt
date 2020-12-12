@@ -26,3 +26,17 @@ C:\Egarshan\Education\4 курс\Интеллектуальные системы
 C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\PPC\PPC\obj\Debug\PPC.csproj.CoreCompileInputs.cache
 C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\PPC\PPC\obj\Debug\PPC.exe
 C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\PPC\PPC\obj\Debug\PPC.pdb
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\bin\Debug\PCC_DB.mdf
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\bin\Debug\PCC_DB_log.ldf
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\bin\Debug\PPC.exe.config
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\bin\Debug\PPC.exe
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\bin\Debug\PPC.pdb
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\PPC.csprojAssemblyReference.cache
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\WindowsFormsApp1.Anketa.resources
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\PPC.MainWindow.resources
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\PPC.Properties.Resources.resources
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\WindowsFormsApp1.Result.resources
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\PPC.csproj.GenerateResource.cache
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\PPC.csproj.CoreCompileInputs.cache
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\PPC.exe
+C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\Repos\PPC\PPC\obj\Debug\PPC.pdb

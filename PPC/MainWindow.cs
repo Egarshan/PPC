@@ -25,7 +25,7 @@ namespace PPC
             this.Hide();
         }
 
-        private void Exit_btn_Click(object sender, EventArgs e)
+        private void Exit_btn_Click_1(object sender, EventArgs e)
         {
             Application.Exit();
         }
