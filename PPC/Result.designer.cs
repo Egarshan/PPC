@@ -100,7 +100,7 @@
             this.Price_text.AutoSize = true;
             this.Price_text.BackColor = System.Drawing.Color.Transparent;
             this.Price_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Price_text.ForeColor = System.Drawing.Color.ForestGreen;
+            this.Price_text.ForeColor = System.Drawing.Color.Blue;
             this.Price_text.Location = new System.Drawing.Point(33, 328);
             this.Price_text.Name = "Price_text";
             this.Price_text.Size = new System.Drawing.Size(326, 29);
