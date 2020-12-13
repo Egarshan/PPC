@@ -18,8 +18,8 @@ namespace WindowsFormsApp1
     {
         const string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Egarshan\Education\4 курс\Интеллектуальные системы\Лабораторная работа №1\PPC\PPC\PCC_DB.mdf;Integrated Security=True";
         string sqlExpression;   //строка для запросов к БД
-        int[] Elemetns_prices = { 0, 0, 0, 0 }; //цены элементов
-        Configuration config;   //экземпляр конфигурации
+        int[] Elements_prices = { 0, 0, 0, 0 }; //цены элементов
+        Configuration cnf1, cnf2, cnf3;   //экземпляры конфигурации
 
         public Anketa()
         {
@@ -79,9 +79,11 @@ namespace WindowsFormsApp1
                 Waring_label.Visible = true;
             else
             {
-                config = new Configuration();
+                cnf1 = new Configuration();
+                cnf2 = new Configuration();
+                cnf3 = new Configuration();
                 SetConfig();    //функция формирования конфигурации
-                Result result = new Result(config);
+                Result result = new Result(cnf1, cnf2, cnf3);
                 result.Show();
                 this.Hide();
             }
@@ -124,46 +126,112 @@ namespace WindowsFormsApp1
                     sqlExpression += " PRODUCER = '" + VC_Producer_field.SelectedItem + "' AND";
                 sqlExpression += " VIDEO_MEMORY = '" + VC_Memory_field.SelectedItem.ToString().Trim(' ', 'Г', 'б') + "' AND " +
                     "IS_GAMING = '" + Is_gaming + "' ORDER BY PRICE DESC";
-                Elemetns_prices[0] = Get_Element_MaxPrice(sqlExpression, connection);
+                Elements_prices[0] = Get_Element_MaxPrice(sqlExpression, connection);
 
                 sqlExpression = "SELECT PRICE FROM PROCESSOR WHERE";
                 if (Proc_Producer_field.SelectedItem.ToString() != "Не знаю")
                     sqlExpression += " PRODUCER = '" + Proc_Producer_field.SelectedItem + "' AND";
                 sqlExpression += " IS_GAMING = '" + Is_gaming + "' ORDER BY PRICE DESC";
-                Elemetns_prices[1] = Get_Element_MaxPrice(sqlExpression, connection);
+                Elements_prices[1] = Get_Element_MaxPrice(sqlExpression, connection);
 
                 sqlExpression = "SELECT PRICE FROM RAM WHERE MEMORY = '" + RAM_Memory_field.SelectedItem.ToString().Trim(' ', 'Г', 'б') + "' ORDER BY PRICE DESC";
-                Elemetns_prices[2] = Get_Element_MaxPrice(sqlExpression, connection);
+                Elements_prices[2] = Get_Element_MaxPrice(sqlExpression, connection);
 
                 sqlExpression = "SELECT PRICE FROM SSD WHERE MEMORY = '" + SSD_Memory_field.SelectedItem.ToString().Trim(' ', 'Г', 'б') + "' ORDER BY PRICE DESC";
-                Elemetns_prices[3] = Get_Element_MaxPrice(sqlExpression, connection);
+                Elements_prices[3] = Get_Element_MaxPrice(sqlExpression, connection);
 
-                if (Elemetns_prices.Sum() > Budget_field.Value)
+
+                if (Elements_prices.Sum() > Budget_field.Value)
                 {
                     sqlExpression = "SELECT PRICE FROM SSD ORDER BY PRICE DESC";
                     DropDownPrice(sqlExpression, connection, 3);
 
-                    if (Elemetns_prices.Sum() > Budget_field.Value)
+                    if (Elements_prices.Sum() > Budget_field.Value)
                     {
                         sqlExpression = "SELECT PRICE FROM RAM ORDER BY PRICE DESC";
                         DropDownPrice(sqlExpression, connection, 2);
 
-                        if (Elemetns_prices.Sum() > Budget_field.Value)
+                        if (Elements_prices.Sum() > Budget_field.Value)
                         {
                             sqlExpression = "SELECT PRICE FROM PROCESSOR ORDER BY PRICE DESC";
                             DropDownPrice(sqlExpression, connection, 1);
 
-                            if (Elemetns_prices.Sum() > Budget_field.Value)
+                            if (Elements_prices.Sum() > Budget_field.Value)
                             {
                                 sqlExpression = "SELECT PRICE FROM VIDEO_CARD ORDER BY PRICE DESC";
                                 DropDownPrice(sqlExpression, connection, 0);
                             }
                         }
-                    } 
+                    }
+                    CreateConfiguration(connection, cnf1);
                 }
-                
-                CreateConfiguration(connection);  //фиксирование комплектующих конфигурации
+                else
+                    CreateConfiguration(connection, cnf1);  //фиксирование комплектующих конфигурации
                
+               if (Elements_prices.Sum() > 8600 || Elements_prices.Sum() > 8800)
+               {
+                    Budget_field.Value = Elements_prices.Sum();
+
+                    if (Elements_prices.Sum() >= Budget_field.Value)
+                    {
+                        sqlExpression = "SELECT PRICE FROM VIDEO_CARD ORDER BY PRICE DESC";
+                        DropDownPrice(sqlExpression, connection, 0);
+
+                        if (Elements_prices.Sum() >= Budget_field.Value)
+                        {
+                            sqlExpression = "SELECT PRICE FROM PROCESSOR ORDER BY PRICE DESC";
+                            DropDownPrice(sqlExpression, connection, 1);
+
+                            if (Elements_prices.Sum() >= Budget_field.Value)
+                            {
+                                sqlExpression = "SELECT PRICE FROM RAM ORDER BY PRICE DESC";
+                                DropDownPrice(sqlExpression, connection, 2);
+
+                                if (Elements_prices.Sum() >= Budget_field.Value)
+                                {
+                                    sqlExpression = "SELECT PRICE FROM SSD ORDER BY PRICE DESC";
+                                    DropDownPrice(sqlExpression, connection, 3);
+                                }
+                            }
+                        }
+                        CreateConfiguration(connection, cnf2);
+                    }
+                    else
+                        CreateConfiguration(connection, cnf1);
+                }
+
+                if (Elements_prices.Sum() > 8600 || Elements_prices.Sum() > 8800)
+                {
+                    Budget_field.Value = Elements_prices.Sum();
+
+                    if (Elements_prices.Sum() >= Budget_field.Value)
+                    {
+                        sqlExpression = "SELECT PRICE FROM PROCESSOR ORDER BY PRICE DESC";
+                        DropDownPrice(sqlExpression, connection, 1);
+
+                        if (Elements_prices.Sum() >= Budget_field.Value)
+                        {
+                            sqlExpression = "SELECT PRICE FROM VIDEO_CARD ORDER BY PRICE DESC";
+                            DropDownPrice(sqlExpression, connection, 0);
+
+                            if (Elements_prices.Sum() >= Budget_field.Value)
+                            {
+                                sqlExpression = "SELECT PRICE FROM RAM ORDER BY PRICE DESC";
+                                DropDownPrice(sqlExpression, connection, 2);
+
+                                if (Elements_prices.Sum() >= Budget_field.Value)
+                                {
+                                    sqlExpression = "SELECT PRICE FROM SSD ORDER BY PRICE DESC";
+                                    DropDownPrice(sqlExpression, connection, 3);
+                                }
+                            }
+                        }
+                        CreateConfiguration(connection, cnf3);
+                    }
+                    else
+                        CreateConfiguration(connection, cnf1);
+                }
+
                 connection.Close();          
             }
         }
@@ -196,22 +264,26 @@ namespace WindowsFormsApp1
             {
                 while (sqlReader.Read())    //пока не закончились записи (строки)
                 {
-                    if (Elemetns_prices.Sum() < Budget_field.Value) break;
-                    Elemetns_prices[el_index] = (int)sqlReader.GetValue(0);
+                    if (Elements_prices.Sum() < Budget_field.Value) break;
+                    Elements_prices[el_index] = (int)sqlReader.GetValue(0);
                 }
             }
 
             sqlReader.Close();
         }
 
-        private void CreateConfiguration (SqlConnection connect)
+        private void CreateConfiguration (SqlConnection connect, Configuration cnfg)
         {
+            string note_book_postfix = "";
             if (Is_Portable_field.Checked)
-                config.type = "Ноутбук";
+            {
+                cnfg.type = "Ноутбук";
+                note_book_postfix = "(NoteBook)";
+            }
             else
-                config.type = "Стационарный компьютер";
+                cnfg.type = "Стационарный компьютер";
 
-            sqlExpression = "SELECT * FROM VIDEO_CARD WHERE PRICE = '" + Elemetns_prices[0] + "'";
+            sqlExpression = "SELECT * FROM VIDEO_CARD WHERE PRICE = '" + Elements_prices[0] + "'";
 
             SqlCommand sqlCommand = new SqlCommand(sqlExpression, connect);
             SqlDataReader sqlReader = sqlCommand.ExecuteReader();
@@ -219,12 +291,12 @@ namespace WindowsFormsApp1
             if (sqlReader.HasRows)
             {
                 sqlReader.Read();
-                config.VC_info = sqlReader.GetValue(2).ToString().Trim() + " " + sqlReader.GetValue(3).ToString().Trim() +
+                cnfg.VC_info = sqlReader.GetValue(2).ToString().Trim() + " " + sqlReader.GetValue(3).ToString().Trim() + " " + note_book_postfix +
                     " " + sqlReader.GetValue(4).ToString().Trim() + " Гб |" + sqlReader.GetValue(5).ToString().Trim() + " РУБ|";
             }
             sqlReader.Close();
 
-            sqlExpression = "SELECT * FROM PROCESSOR WHERE PRICE = '" + Elemetns_prices[1] + "'";
+            sqlExpression = "SELECT * FROM PROCESSOR WHERE PRICE = '" + Elements_prices[1] + "'";
             
             sqlCommand = new SqlCommand(sqlExpression, connect);
             sqlReader = sqlCommand.ExecuteReader();
@@ -232,12 +304,12 @@ namespace WindowsFormsApp1
             if (sqlReader.HasRows)
             {
                 sqlReader.Read();
-                config.Proc_info = sqlReader.GetValue(2).ToString().Trim() + " " + sqlReader.GetValue(3).ToString().Trim() +
+                cnfg.Proc_info = sqlReader.GetValue(2).ToString().Trim() + " " + sqlReader.GetValue(3).ToString().Trim() + " " + note_book_postfix +
                     " |" + sqlReader.GetValue(4).ToString().Trim() + " РУБ|";
             }
             sqlReader.Close();
 
-            sqlExpression = "SELECT * FROM RAM WHERE PRICE = '" + Elemetns_prices[2] + "'";
+            sqlExpression = "SELECT * FROM RAM WHERE PRICE = '" + Elements_prices[2] + "'";
 
             sqlCommand = new SqlCommand(sqlExpression, connect);
             sqlReader = sqlCommand.ExecuteReader();
@@ -245,12 +317,12 @@ namespace WindowsFormsApp1
             if (sqlReader.HasRows)
             {
                 sqlReader.Read();
-                config.RAM_info = sqlReader.GetValue(1).ToString().Trim() + " " + sqlReader.GetValue(2).ToString().Trim() +
-                     " Гб |" + sqlReader.GetValue(3).ToString().Trim() + " РУБ|";
+                cnfg.RAM_info = sqlReader.GetValue(1).ToString().Trim() + " " + sqlReader.GetValue(2).ToString().Trim() +
+                     " Гб " + note_book_postfix + " |" + sqlReader.GetValue(3).ToString().Trim() + " РУБ|";
             }
             sqlReader.Close();
 
-            sqlExpression = "SELECT * FROM SSD WHERE PRICE = '" + Elemetns_prices[3] + "'";
+            sqlExpression = "SELECT * FROM SSD WHERE PRICE = '" + Elements_prices[3] + "'";
 
             sqlCommand = new SqlCommand(sqlExpression, connect);
             sqlReader = sqlCommand.ExecuteReader();
@@ -258,12 +330,12 @@ namespace WindowsFormsApp1
             if (sqlReader.HasRows)
             {
                 sqlReader.Read();
-                config.SSD_info = sqlReader.GetValue(1).ToString().Trim() + " " + sqlReader.GetValue(2).ToString().Trim() +
-                    " Гб |" + sqlReader.GetValue(3).ToString().Trim() + " РУБ|";
+                cnfg.SSD_info = sqlReader.GetValue(1).ToString().Trim() + " " + sqlReader.GetValue(2).ToString().Trim() +
+                    " Гб " + note_book_postfix + " |" + sqlReader.GetValue(3).ToString().Trim() + " РУБ|";
             }
             sqlReader.Close();
 
-            config.price = Elemetns_prices.Sum();
+            cnfg.price = Elements_prices.Sum();
         }
 
         private void Exit_btn_Click(object sender, EventArgs e)
